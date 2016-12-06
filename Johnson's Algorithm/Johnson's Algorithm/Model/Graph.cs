@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Johnson_s_Algorithm
+namespace Johnsons.Algorithm
 {
-    class Graph
+    public class Graph
     {
         public Graph()
         {

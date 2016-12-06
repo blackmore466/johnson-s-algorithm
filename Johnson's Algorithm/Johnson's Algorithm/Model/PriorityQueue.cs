@@ -4,12 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Johnson_s_Algorithm
+namespace Johnsons.Algorithm
 {
     public class PriorityQueue
     {
         private static int Count = 0;
         private List<NodeWithPriority> Nodes;
+
+        public PriorityQueue()
+        {
+            Nodes = new List<NodeWithPriority>();
+        }
 
         public bool IsEmpty
         {
@@ -21,14 +26,15 @@ namespace Johnson_s_Algorithm
             get { return Count; }
         }
 
-        public void AddNode(Node node)
+        public void AddNode(Node node, int priority)
         {
-            Nodes.Add(new NodeWithPriority(node, ++Count));
+            Nodes.Add(new NodeWithPriority(node, priority));
+            ++Count;
         }
 
-        public Node ExtractNode()
+        public Node ExtractNode(int priority)
         {
-            var currentNode = Nodes.FirstOrDefault(f => f.Priority == Count);
+            var currentNode = Nodes.FirstOrDefault(f => f.Priority == priority);
             Count--;
             return currentNode.Node;
         }

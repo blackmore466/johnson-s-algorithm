@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Johnson_s_Algorithm
+namespace Johnsons.Algorithm
 {
     public class Node
     {
