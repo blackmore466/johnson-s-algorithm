@@ -229,8 +229,49 @@ namespace Johnson_s_Algorithm
             
             #endregion
 
+            #region Init graph2
 
-            var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph2, graph2.Nodes.First(f => f.Id == 1));
+            Graph graph3 = new Graph();
+
+            graph3.Nodes = new List<Node>
+            {
+                 new Node {Id = 1},
+                 new Node {Id = 2},
+                 new Node {Id = 3},
+            };
+
+            graph3.Edges = new List<Edge>
+            {
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 2,
+                    Weight = 4
+                },
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 3,
+                    Weight = 11
+                },
+                new Edge
+                {
+                    SourceNode = 2,
+                    DestinationNode = 3,
+                    Weight = -2
+                },
+                new Edge
+                {
+                    SourceNode = 3,
+                    DestinationNode = 1,
+                    Weight = 3
+                },
+            };
+
+            #endregion
+
+
+            var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
 
             var shortestDistances1 = Bellman_FordAlgorithm.FindShortestPath(graph2, graph2.Nodes.First(f => f.Id == 1));
         }
