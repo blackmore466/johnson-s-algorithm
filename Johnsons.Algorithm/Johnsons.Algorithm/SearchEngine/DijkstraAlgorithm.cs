@@ -8,6 +8,7 @@ namespace Johnsons.Algorithm.SearchEngine
 {
     public static class DijkstraAlgorithm
     {
+        private static int Iterator = 1;
         private static int PositiveInfinity = int.MaxValue;
         private static int[] Distances;
         private static PriorityQueue PriorityQueue;
@@ -28,30 +29,33 @@ namespace Johnsons.Algorithm.SearchEngine
             Distances = new int[graph.Nodes.Count];
             PriorityQueue = new PriorityQueue();
 
-            Distances[node.Id] = 0;
+            Distances[node.Id - 1] = 0;
 
             graph.Nodes.All(f =>
             {
                 if (f.Id != node.Id)
                 {
-                    Distances[f.Id] = PositiveInfinity;
+                    Distances[f.Id - 1] = PositiveInfinity;
                 }
-                PriorityQueue.AddNode(f, Distances[f.Id]);
+                PriorityQueue.AddNode(f, Distances[f.Id - 1]);
                 return true;
             });
 
             while (!PriorityQueue.IsEmpty)
             {
-                int minimalDistance = Distances.Min();
+                Distances.OrderBy(f => f);
+                int minimalDistance = Distances[Iterator - 1];
+                Iterator++;
                 Node nodeWithMinimalDistance = PriorityQueue.ExtractNode(minimalDistance);
 
                 var relatedEdges = graph.Edges.Where(f => f.SourceNode == nodeWithMinimalDistance.Id); // Исходящие ребра из nodeWithMinimalDistance
                 foreach (var edge in relatedEdges)
                 {
                     int alternativeDistance = minimalDistance + edge.Weight;
-                    if (alternativeDistance < Distances[edge.DestinationNode])
+                    if (alternativeDistance < Distances[edge.DestinationNode - 1])
                     {
-                        Distances[edge.DestinationNode] = alternativeDistance; //для каждой смежной вершины переопределяем расстояние
+                        Distances[edge.DestinationNode - 1] = alternativeDistance; //для каждой смежной вершины переопределяем расстояние
+                        PriorityQueue.ChangePriority(edge.DestinationNode, alternativeDistance);
                     }
                 }
             }

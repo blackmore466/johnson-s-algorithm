@@ -36,7 +36,14 @@ namespace Johnsons.Algorithm
         {
             var currentNode = Nodes.FirstOrDefault(f => f.Priority == priority);
             Count--;
-            return currentNode.Node;
+            Nodes.Remove(currentNode);
+            return currentNode.Node;   
+        }
+
+        public void ChangePriority(int nodeId, int newPriority)
+        {
+            var node = Nodes.First(f => f.Node.Id == nodeId);
+            node.Priority = newPriority;
         }
     }
 
@@ -47,7 +54,7 @@ namespace Johnsons.Algorithm
     class NodeWithPriority
     {
         public Node Node;
-        public int Priority;
+        public int Priority { get; set; }
 
         public NodeWithPriority(Node node, int priority)
         {

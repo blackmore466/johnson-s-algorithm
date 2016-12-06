@@ -7,8 +7,8 @@
     <ProjectGuid>{78236586-39AD-47DD-BF39-799F11EECF3A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Johnson_s_Algorithm</RootNamespace>
-    <AssemblyName>Johnson%27s Algorithm</AssemblyName>
+    <RootNamespace>Johnsons.Algorithm</RootNamespace>
+    <AssemblyName>Johnsons.Algorithm</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
