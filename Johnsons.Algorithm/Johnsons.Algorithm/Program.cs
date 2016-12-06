@@ -238,6 +238,7 @@ namespace Johnson_s_Algorithm
                  new Node {Id = 1},
                  new Node {Id = 2},
                  new Node {Id = 3},
+                 new Node {Id = 4}
             };
 
             graph3.Edges = new List<Edge>
@@ -246,25 +247,31 @@ namespace Johnson_s_Algorithm
                 {
                     SourceNode = 1,
                     DestinationNode = 2,
-                    Weight = 4
+                    Weight = 1
+                },
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 4,
+                    Weight = 99
                 },
                 new Edge
                 {
                     SourceNode = 1,
                     DestinationNode = 3,
-                    Weight = 11
+                    Weight = 0
                 },
                 new Edge
                 {
                     SourceNode = 2,
                     DestinationNode = 3,
-                    Weight = -2
+                    Weight = 1
                 },
                 new Edge
                 {
-                    SourceNode = 3,
-                    DestinationNode = 1,
-                    Weight = 3
+                    SourceNode = 4,
+                    DestinationNode = 2,
+                    Weight = -300
                 },
             };
 
@@ -273,7 +280,7 @@ namespace Johnson_s_Algorithm
 
             var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
 
-            var shortestDistances1 = Bellman_FordAlgorithm.FindShortestPath(graph2, graph2.Nodes.First(f => f.Id == 1));
+            var shortestDistances1 = Bellman_FordAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
         }
     }
 }

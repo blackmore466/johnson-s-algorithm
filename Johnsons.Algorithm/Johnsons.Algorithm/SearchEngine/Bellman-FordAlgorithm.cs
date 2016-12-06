@@ -13,27 +13,21 @@ namespace Johnsons.Algorithm.SearchEngine
     {
         private static int Iterator = 1;
         private static int PositiveInfinity = int.MaxValue;
-        private static DistancesAndChain[] DistancesAdnChains;
+        private static int[] Distances;
         private static PriorityQueue PriorityQueue;
 
-        public static DistancesAndChain[] FindShortestPath(Graph graph, Node node)
+        public static int[] FindShortestPath(Graph graph, Node node)
         {
-            DistancesAdnChains = new DistancesAndChain[graph.Nodes.Count];
+            Distances = new int[graph.Nodes.Count];
 
-            DistancesAdnChains[node.Id - 1] = new DistancesAndChain();
-
-            DistancesAdnChains[node.Id - 1].Distance = 0;
-            DistancesAdnChains[node.Id - 1].Predecessor = null;
+            Distances[node.Id - 1] = 0;
 
             graph.Nodes.All(f =>
             {
                 if (f.Id != node.Id)
                 {
-                    DistancesAdnChains[f.Id - 1] = new DistancesAndChain();
-                    DistancesAdnChains[f.Id - 1].Distance = PositiveInfinity;
-                    DistancesAdnChains[f.Id - 1].Predecessor = null;
+                    Distances[f.Id - 1]= PositiveInfinity;
                 }
-                //PriorityQueue.AddNode(f, DistancesAdnChains[f.Id - 1]);
                 return true;
             });
 
@@ -41,38 +35,26 @@ namespace Johnsons.Algorithm.SearchEngine
             {
                 foreach (var edge in graph.Edges)
                 {
-                    if (DistancesAdnChains[edge.DestinationNode - 1].Distance >
-                        DistancesAdnChains[edge.SourceNode - 1].Distance + edge.Weight)
+                    if (Distances[edge.DestinationNode - 1] >
+                        Distances[edge.SourceNode - 1] + edge.Weight)
                     {
-                        DistancesAdnChains[edge.DestinationNode - 1].Distance =
-                            DistancesAdnChains[edge.SourceNode - 1].Distance + edge.Weight;
-                        DistancesAdnChains[edge.DestinationNode - 1].Predecessor = edge.SourceNode;
+                        Distances[edge.DestinationNode - 1] =
+                            Distances[edge.SourceNode - 1] + edge.Weight;
                     }
                 }
             }
 
             foreach (var edge in graph.Edges)
             {
-                if (DistancesAdnChains[edge.DestinationNode - 1].Distance >
-                    DistancesAdnChains[edge.SourceNode - 1].Distance + edge.Weight)
+                if (Distances[edge.DestinationNode - 1] >
+                    Distances[edge.SourceNode - 1] + edge.Weight)
                 {
                     throw new NegativeCycleException();
                 }
             }
 
-            return DistancesAdnChains;
+            return Distances;
         }
-    }
-
-    /// <summary>
-    /// Класс-обёртка, инкапсулирующий в себе расстояние до каждой вершины 
-    /// и вершину, предшествующую данной на кратчайшем пути
-    /// </summary>
-    public class DistancesAndChain
-    {
-        public int Distance { get; set; }
-        public int? Predecessor { get; set; }
-
     }
 
     public class NegativeCycleException : Exception
