@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Johnson.Algorithm.Model;
 
 namespace Johnson.Algorithm.SearchEngine
 {
@@ -7,10 +8,10 @@ namespace Johnson.Algorithm.SearchEngine
     /// </summary>
     public static class DijkstraAlgorithm
     {
-        private static int Iterator = 1;
+        private static int _iterator = 1;
         private static int PositiveInfinity = int.MaxValue;
-        private static int[] Distances;
-        private static PriorityQueue PriorityQueue;
+        private static int[] _distances;
+        private static PriorityQueue _priorityQueue;
 
         /// <summary>
         /// Реализация алгоритма. 
@@ -25,41 +26,41 @@ namespace Johnson.Algorithm.SearchEngine
         /// <param name="node">Вершина графа, для которой производится поиск кратчайших путей для всех остальных вершин графа </param>
         public static int[] FindShortestPath(Graph graph, Node node)
         {
-            Distances = new int[graph.Nodes.Count];
-            PriorityQueue = new PriorityQueue();
+            _distances = new int[graph.Nodes.Count];
+            _priorityQueue = new PriorityQueue();
 
-            Distances[node.Id - 1] = 0;
+            _distances[node.Id - 1] = 0;
 
             graph.Nodes.All(f =>
             {
                 if (f.Id != node.Id)
                 {
-                    Distances[f.Id - 1] = PositiveInfinity;
+                    _distances[f.Id - 1] = PositiveInfinity;
                 }
-                PriorityQueue.AddNode(f, Distances[f.Id - 1]);
+                _priorityQueue.AddNode(f, _distances[f.Id - 1]);
                 return true;
             });
 
-            while (!PriorityQueue.IsEmpty)
+            while (!_priorityQueue.IsEmpty)
             {
-                Distances.OrderBy(f => f);
-                int minimalDistance = Distances[Iterator - 1];
-                Iterator++;
-                Node nodeWithMinimalDistance = PriorityQueue.ExtractNode(minimalDistance);
+                _distances.OrderBy(f => f);
+                int minimalDistance = _distances[_iterator - 1];
+                _iterator++;
+                Node nodeWithMinimalDistance = _priorityQueue.ExtractNode(minimalDistance);
 
                 var relatedEdges = graph.Edges.Where(f => f.SourceNode == nodeWithMinimalDistance.Id); // Исходящие ребра из nodeWithMinimalDistance
                 foreach (var edge in relatedEdges)
                 {
                     int alternativeDistance = minimalDistance + edge.Weight;
-                    if (alternativeDistance < Distances[edge.DestinationNode - 1])
+                    if (alternativeDistance < _distances[edge.DestinationNode - 1])
                     {
-                        Distances[edge.DestinationNode - 1] = alternativeDistance; //для каждой смежной вершины переопределяем расстояние
-                        PriorityQueue.ChangePriority(edge.DestinationNode, alternativeDistance);
+                        _distances[edge.DestinationNode - 1] = alternativeDistance; //для каждой смежной вершины переопределяем расстояние
+                        _priorityQueue.ChangePriority(edge.DestinationNode, alternativeDistance);
                     }
                 }
             }
 
-            return Distances;
+            return _distances;
         }
     }
 }

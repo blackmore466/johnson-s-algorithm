@@ -1,32 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Johnson.Algorithm.Model;
 
 namespace Johnson.Algorithm.SearchEngine
 {
     /// <summary>
     /// Реализация алгоритма бэллмана-Форда
     /// </summary>
-    public static class Bellman_FordAlgorithm
+    public static class BellmanFordAlgorithm
     {
-        private static int Iterator = 1;
         private static int PositiveInfinity = int.MaxValue;
-        private static int[] Distances;
-        private static PriorityQueue PriorityQueue;
+        private static int[] _distances;
 
         public static int[] FindShortestPath(Graph graph, Node node)
         {
-            Distances = new int[graph.Nodes.Count];
+            _distances = new int[graph.Nodes.Count];
 
-            Distances[node.Id - 1] = 0;
+            _distances[node.Id - 1] = 0;
 
             graph.Nodes.All(f =>
             {
                 if (f.Id != node.Id)
                 {
-                    Distances[f.Id - 1]= PositiveInfinity;
+                    _distances[f.Id - 1]= PositiveInfinity;
                 }
                 return true;
             });
@@ -35,25 +31,25 @@ namespace Johnson.Algorithm.SearchEngine
             {
                 foreach (var edge in graph.Edges)
                 {
-                    if (Distances[edge.DestinationNode - 1] >
-                        Distances[edge.SourceNode - 1] + edge.Weight)
+                    if (_distances[edge.DestinationNode - 1] >
+                        _distances[edge.SourceNode - 1] + edge.Weight)
                     {
-                        Distances[edge.DestinationNode - 1] =
-                            Distances[edge.SourceNode - 1] + edge.Weight;
+                        _distances[edge.DestinationNode - 1] =
+                            _distances[edge.SourceNode - 1] + edge.Weight;
                     }
                 }
             }
 
             foreach (var edge in graph.Edges)
             {
-                if (Distances[edge.DestinationNode - 1] >
-                    Distances[edge.SourceNode - 1] + edge.Weight)
+                if (_distances[edge.DestinationNode - 1] >
+                    _distances[edge.SourceNode - 1] + edge.Weight)
                 {
                     throw new NegativeCycleException();
                 }
             }
 
-            return Distances;
+            return _distances;
         }
     }
 

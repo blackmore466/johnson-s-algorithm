@@ -1,51 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Johnson.Algorithm
+namespace Johnson.Algorithm.Model
 {
     /// <summary>
     /// Очередь обработки вершин графа
     /// </summary>
     public class PriorityQueue
     {
-        private static int Count = 0;
-        private List<NodeWithPriority> Nodes;
+        private static int _count;
+        private List<NodeWithPriority> _nodes;
 
         public PriorityQueue()
         {
-            Nodes = new List<NodeWithPriority>();
+            _count = 0;
+            _nodes = new List<NodeWithPriority>();
         }
 
         public bool IsEmpty
         {
-            get { return Count == 0; }
+            get { return _count == 0; }
         }
 
         public int Size
         {
-            get { return Count; }
+            get { return _count; }
         }
 
         public void AddNode(Node node, int priority)
         {
-            Nodes.Add(new NodeWithPriority(node, priority));
-            ++Count;
+            _nodes.Add(new NodeWithPriority(node, priority));
+            ++_count;
         }
 
         public Node ExtractNode(int priority)
         {
-            var currentNode = Nodes.FirstOrDefault(f => f.Priority == priority);
-            Count--;
-            Nodes.Remove(currentNode);
+            var currentNode = _nodes.FirstOrDefault(f => f.Priority == priority);
+            _count--;
+            _nodes.Remove(currentNode);
             return currentNode.Node;   
         }
 
         public void ChangePriority(int nodeId, int newPriority)
         {
-            var node = Nodes.First(f => f.Node.Id == nodeId);
+            var node = _nodes.First(f => f.Node.Id == nodeId);
             node.Priority = newPriority;
         }
     }
