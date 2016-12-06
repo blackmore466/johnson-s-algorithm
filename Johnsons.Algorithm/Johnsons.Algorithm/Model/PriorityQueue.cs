@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Johnsons.Algorithm
 {
+    /// <summary>
+    /// Очередь обработки вершин графа
+    /// Содержит базовые методы по работе с очередью
+    /// </summary>
     public class PriorityQueue
     {
         private static int Count = 0;

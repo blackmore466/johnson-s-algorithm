@@ -47,6 +47,7 @@
     <Compile Include="Model\PriorityQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchEngine\Bellman-FordAlgorithm.cs" />
     <Compile Include="SearchEngine\DijkstraAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>

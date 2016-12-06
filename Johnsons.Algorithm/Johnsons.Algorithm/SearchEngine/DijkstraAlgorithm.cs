@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Johnsons.Algorithm.SearchEngine
 {
+    /// <summary>
+    /// Реализация алгоритма Дэйкстра
+    /// </summary>
     public static class DijkstraAlgorithm
     {
         private static int Iterator = 1;
