@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Johnson.Algorithm
+namespace Johnson.Algorithm.SearchEngine
 {
-    public class Node
+    public class JohnsonAlgorithm
     {
-        public int Id { get; set; }
-
     }
 }

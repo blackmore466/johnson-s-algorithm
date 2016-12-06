@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Johnsons.Algorithm.SearchEngine
+namespace Johnson.Algorithm.SearchEngine
 {
     /// <summary>
     /// Реализация алгоритма бэллмана-Форда

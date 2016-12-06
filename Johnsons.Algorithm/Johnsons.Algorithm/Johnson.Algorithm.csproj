@@ -7,7 +7,7 @@
     <ProjectGuid>{78236586-39AD-47DD-BF39-799F11EECF3A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Johnsons.Algorithm</RootNamespace>
+    <RootNamespace>Johnson.Algorithm</RootNamespace>
     <AssemblyName>Johnsons.Algorithm</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchEngine\Bellman-FordAlgorithm.cs" />
     <Compile Include="SearchEngine\DijkstraAlgorithm.cs" />
+    <Compile Include="SearchEngine\JohnsonsAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

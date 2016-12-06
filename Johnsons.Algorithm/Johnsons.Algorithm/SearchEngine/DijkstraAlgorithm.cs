@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Johnsons.Algorithm.SearchEngine
+namespace Johnson.Algorithm.SearchEngine
 {
     /// <summary>
     /// Реализация алгоритма Дэйкстра

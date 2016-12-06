@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Johnsons.Algorithm.SearchEngine;
-using Johnsons.Algorithm;
+using Johnson.Algorithm.SearchEngine;
 
-namespace Johnson_s_Algorithm
+namespace Johnson.Algorithm
 {
     class Program
     {
@@ -229,7 +225,8 @@ namespace Johnson_s_Algorithm
             
             #endregion
 
-            #region Init graph2
+            //граф с отрицательными весами ребёр
+            #region Init graph3
 
             Graph graph3 = new Graph();
 
@@ -278,7 +275,7 @@ namespace Johnson_s_Algorithm
             #endregion
 
 
-            var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
+            var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == 1));
 
             var shortestDistances1 = Bellman_FordAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
         }

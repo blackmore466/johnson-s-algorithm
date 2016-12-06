@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Johnsons.Algorithm
+namespace Johnson.Algorithm
 {
     /// <summary>
     /// Очередь обработки вершин графа
-    /// Содержит базовые методы по работе с очередью
     /// </summary>
     public class PriorityQueue
     {
