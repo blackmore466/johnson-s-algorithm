@@ -7,6 +7,8 @@ namespace Johnson.Algorithm
 {
     class Program
     {
+        private static string _errorMessage = "";
+
         static void Main()
         {
             #region Init graph
@@ -282,9 +284,18 @@ namespace Johnson.Algorithm
             #endregion
 
 
-            var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == 1));
+            //var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == 1));
 
-            var shortestDistances1 = BellmanFordAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
+            //var shortestDistances1 = BellmanFordAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
+
+            try
+            {
+                var shortestDistances = JohnsonAlgorithm.FindShortestPaths(graph);
+            }
+            catch (NegativeCycleException e)
+            {
+                _errorMessage = e.Message;
+            }
         }
     }
 }

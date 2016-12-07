@@ -8,7 +8,7 @@ namespace Johnson.Algorithm.SearchEngine
     /// </summary>
     public static class DijkstraAlgorithm
     {
-        private static int _iterator = 1;
+        private static int _iterator;
         private static int PositiveInfinity = int.MaxValue;
         private static int[] _distances;
         private static PriorityQueue _priorityQueue;
@@ -26,6 +26,7 @@ namespace Johnson.Algorithm.SearchEngine
         /// <param name="node">Вершина графа, для которой производится поиск кратчайших путей для всех остальных вершин графа </param>
         public static int[] FindShortestPath(Graph graph, Node node)
         {
+            _iterator = 1;
             _distances = new int[graph.Nodes.Count];
             _priorityQueue = new PriorityQueue();
 
