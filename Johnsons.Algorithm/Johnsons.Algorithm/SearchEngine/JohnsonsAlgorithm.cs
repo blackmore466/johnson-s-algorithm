@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Odbc;
+using System.Linq;
 using Johnson.Algorithm.Model;
 
 namespace Johnson.Algorithm.SearchEngine
@@ -25,8 +26,8 @@ namespace Johnson.Algorithm.SearchEngine
 
             graph.AddFakeNode();
             
-            var shortestPathsFromFakeNode = 
-                    BellmanFordAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == 6));
+            var shortestPathsFromFakeNode =
+                    BellmanFordAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == GraphNodesCount + 1));
 
             graph.Reweighting(shortestPathsFromFakeNode);
 
@@ -39,9 +40,12 @@ namespace Johnson.Algorithm.SearchEngine
                 shortestPaths[node.Id - 1] = DijkstraAlgorithm.FindShortestPath(graph, node);
                 for (var i = 0; i < shortestPaths[node.Id - 1].Length; i++)
                 {
-                    shortestPaths[node.Id - 1][i] = shortestPaths[node.Id - 1][i]
-                                                    + shortestPathsFromFakeNode[i] -
-                                                    shortestPathsFromFakeNode[node.Id - 1];
+                    if (shortestPaths[node.Id - 1][i] != int.MaxValue)
+                    {
+                        shortestPaths[node.Id - 1][i] = shortestPaths[node.Id - 1][i]
+                                                        + shortestPathsFromFakeNode[i] -
+                                                        shortestPathsFromFakeNode[node.Id - 1];
+                    }
                 }
             }
 

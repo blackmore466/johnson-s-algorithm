@@ -438,7 +438,7 @@ namespace Johnson.Algorithm
                     Console.WriteLine("Для вершины {0}:", i+1);
                     for (int j = 0; j < shortestDistances[i].Length; j++)
                     {
-                        Console.WriteLine("\t - кратчайшее расстояние до вершины {0} равно {1}", j+1, shortestDistances[i][j]);
+                        Console.WriteLine("\t - кратчайшее расстояние до вершины {0}:{1}", j+1, (shortestDistances[i][j] != int.MaxValue ? (object) shortestDistances[i][j] : "Вершина недостижима"));
                     }
                 }
                 Console.WriteLine("Для выхода нажмите любую клавишу");

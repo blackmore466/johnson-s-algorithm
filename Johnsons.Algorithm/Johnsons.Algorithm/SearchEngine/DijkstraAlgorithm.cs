@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Johnson.Algorithm.Model;
 
 namespace Johnson.Algorithm.SearchEngine
@@ -52,11 +53,18 @@ namespace Johnson.Algorithm.SearchEngine
                 var relatedEdges = graph.Edges.Where(f => f.SourceNode == nodeWithMinimalDistance.Id); // Исходящие ребра из nodeWithMinimalDistance
                 foreach (var edge in relatedEdges)
                 {
-                    int alternativeDistance = minimalDistance + edge.Weight;
-                    if (alternativeDistance < _distances[edge.DestinationNode - 1])
+                    try
                     {
-                        _distances[edge.DestinationNode - 1] = alternativeDistance; //для каждой смежной вершины переопределяем расстояние
-                        _priorityQueue.ChangePriority(edge.DestinationNode, alternativeDistance);
+                        int alternativeDistance = checked(minimalDistance + edge.Weight);
+                        if (alternativeDistance < _distances[edge.DestinationNode - 1])
+                        {
+                            _distances[edge.DestinationNode - 1] = alternativeDistance;
+                            //для каждой смежной вершины переопределяем расстояние
+                            _priorityQueue.ChangePriority(edge.DestinationNode, alternativeDistance);
+                        }
+                    }
+                    catch (OverflowException) //решение проблемы хранения бесконечностей в памяти компьютера
+                    {
                     }
                 }
             }
