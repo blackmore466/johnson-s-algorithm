@@ -44,8 +44,8 @@ namespace Johnson.Algorithm.SearchEngine
 
             while (!_priorityQueue.IsEmpty)
             {
-                _distances.OrderBy(f => f);
-                int minimalDistance = _distances[_iterator - 1];
+                int minimalDistance = _distances
+                    .OrderBy(f => f).ToArray()[_iterator - 1];
                 _iterator++;
                 Node nodeWithMinimalDistance = _priorityQueue.ExtractNode(minimalDistance);
 

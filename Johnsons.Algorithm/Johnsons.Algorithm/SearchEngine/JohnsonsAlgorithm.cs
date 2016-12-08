@@ -18,24 +18,24 @@ namespace Johnson.Algorithm.SearchEngine
             graph.AddFakeNode();
             
             var shortestPathsFromFakeNode = 
-                    BellmanFordAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == GraphNodesCount + 1));
+                    BellmanFordAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == 6));
 
             graph.Reweighting(shortestPathsFromFakeNode);
 
              int[][] shortestPaths = new int[GraphNodesCount][];
 
+            graph.RemoveFakeNode(GraphNodesCount + 1);
+
             foreach (var node in graph.Nodes)
             {
-                if (node.Id != GraphNodesCount + 1)
+                shortestPaths[node.Id - 1] = DijkstraAlgorithm.FindShortestPath(graph, node);
+                for (var i = 1; i < shortestPaths[node.Id - 1].Length; i++)
                 {
-                    shortestPaths[node.Id - 1] = DijkstraAlgorithm.FindShortestPath(graph, node);
-                    for (var i = 0; i < shortestPaths[node.Id - 1].Length; i++)
-                    {
-                        shortestPaths[node.Id - 1][i] = shortestPaths[node.Id - 1][i]
-                                                        + shortestPathsFromFakeNode[i] -
-                                                        shortestPathsFromFakeNode[node.Id];
-                    }
+                    shortestPaths[node.Id - 1][i] = shortestPaths[node.Id - 1][i]
+                                                    + shortestPathsFromFakeNode[i] -
+                                                    shortestPathsFromFakeNode[node.Id];
                 }
+
             }
 
             return shortestPaths;
@@ -57,6 +57,12 @@ namespace Johnson.Algorithm.SearchEngine
                     });
                 }
             }
+        }
+
+        private static void RemoveFakeNode(this Graph graph, int id)
+        {
+            graph.Nodes.Remove(graph.Nodes.First(f => f.Id == id));
+            graph.Edges.RemoveAll(f => f.SourceNode == id);
         }
 
         private static void Reweighting(this Graph graph, int[] shortestPaths)

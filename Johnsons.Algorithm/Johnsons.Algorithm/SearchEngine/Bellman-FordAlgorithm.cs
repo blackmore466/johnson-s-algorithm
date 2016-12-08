@@ -31,8 +31,7 @@ namespace Johnson.Algorithm.SearchEngine
             {
                 foreach (var edge in graph.Edges)
                 {
-                    if (_distances[edge.DestinationNode - 1] >
-                        _distances[edge.SourceNode - 1] + edge.Weight)
+                    if (SmartEqual(_distances[edge.DestinationNode - 1], _distances[edge.SourceNode - 1],edge.Weight))
                     {
                         _distances[edge.DestinationNode - 1] =
                             _distances[edge.SourceNode - 1] + edge.Weight;
@@ -50,6 +49,11 @@ namespace Johnson.Algorithm.SearchEngine
             }
 
             return _distances;
+        }
+
+        private static bool SmartEqual(int operand1, int operand2, int operand3)
+        {
+            return operand2 != int.MaxValue && operand1 > operand2 + operand3;
         }
     }
 

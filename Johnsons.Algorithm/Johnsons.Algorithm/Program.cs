@@ -283,14 +283,160 @@ namespace Johnson.Algorithm
 
             #endregion
 
+            #region Init graph4
+            Graph graph4 = new Graph();
+            graph4.Nodes = new List<Node>
+            {
+                new Node {Id = 1},
+                new Node {Id = 2},
+                new Node {Id = 3},
+                new Node {Id = 4},
+                new Node {Id = 5}
+            };
+            graph4.Edges = new List<Edge>
+            {
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 2,
+                    Weight = 3
+                },
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 3,
+                    Weight = 8
+                },
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 5,
+                    Weight = -4
+                },
+                new Edge
+                {
+                    SourceNode = 2,
+                    DestinationNode = 4,
+                    Weight = 1
+                },
+                new Edge
+                {
+                    SourceNode = 2,
+                    DestinationNode = 5,
+                    Weight = 7
+                },
+                new Edge
+                {
+                    SourceNode = 3,
+                    DestinationNode = 2,
+                    Weight = 4
+                },
+                new Edge
+                {
+                    SourceNode = 4,
+                    DestinationNode = 3,
+                    Weight = -5
+                },
+                new Edge
+                {
+                    SourceNode = 4,
+                    DestinationNode = 1,
+                    Weight = 2
+                },
+                new Edge
+                {
+                    SourceNode = 5,
+                    DestinationNode = 4,
+                    Weight = 6
+                },
 
-            //var shortestDistances = DijkstraAlgorithm.FindShortestPath(graph, graph.Nodes.First(f => f.Id == 1));
+            };
 
+            #endregion
+
+            #region Init graph5
+            Graph graph5 = new Graph();
+            graph5.Nodes = new List<Node>
+            {
+                new Node {Id = 1},
+                new Node {Id = 2},
+                new Node {Id = 3},
+                new Node {Id = 4},
+                new Node {Id = 5}
+            };
+            graph5.Edges = new List<Edge>
+            {
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 2,
+                    Weight = 4
+                },
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 3,
+                    Weight = 13
+                },
+                new Edge
+                {
+                    SourceNode = 1,
+                    DestinationNode = 5,
+                    Weight = 0
+                },
+                new Edge
+                {
+                    SourceNode = 2,
+                    DestinationNode = 4,
+                    Weight = 0
+                },
+                new Edge
+                {
+                    SourceNode = 2,
+                    DestinationNode = 5,
+                    Weight = 10
+                },
+                new Edge
+                {
+                    SourceNode = 3,
+                    DestinationNode = 2,
+                    Weight = 0
+                },
+                new Edge
+                {
+                    SourceNode = 4,
+                    DestinationNode = 3,
+                    Weight = 0
+                },
+                new Edge
+                {
+                    SourceNode = 4,
+                    DestinationNode = 1,
+                    Weight = 2
+                },
+                new Edge
+                {
+                    SourceNode = 5,
+                    DestinationNode = 4,
+                    Weight = 2
+                },
+
+            };
+
+            #endregion
+
+
+            var shortestDistances21 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 1));
+            var shortestDistances22 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 2));
+            var shortestDistances23 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 3));
+            var shortestDistances24 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 4));
+            var shortestDistances25 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 5));
+            
             //var shortestDistances1 = BellmanFordAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
 
             try
             {
-                var shortestDistances = JohnsonAlgorithm.FindShortestPaths(graph);
+                var shortestDistances = JohnsonAlgorithm.FindShortestPaths(graph4);
             }
             catch (NegativeCycleException e)
             {
