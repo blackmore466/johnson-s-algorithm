@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Johnson.Algorithm.Model;
 
 namespace Johnson.Algorithm.SearchEngine
 {
+    /// <summary>
+    /// Алгоритм Джонсона
+    /// </summary>
     public static class JohnsonAlgorithm
     {
         private static int GraphNodesCount = 0;
 
+        /// <summary>
+        /// В алгоритме сначала в граф добавляется дополнительная вершина.
+        /// Затем для неё выполняется алгоритм Бэллмана-Форда.
+        /// Исходя из тех кратчайших путей, которые выдал алгоритм, происходит перевзвешивание ребёр(чтобы не было отрицательных).
+        /// Затем дополнительная вершина удаляется.
+        /// Для каждой вершины графа запускается алгоритм Дэйкстры и возвращаются старые веса.
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <returns></returns>
         public static int[][] FindShortestPaths(Graph graph)
         {
             GraphNodesCount = graph.Nodes.Count;
@@ -29,18 +37,21 @@ namespace Johnson.Algorithm.SearchEngine
             foreach (var node in graph.Nodes)
             {
                 shortestPaths[node.Id - 1] = DijkstraAlgorithm.FindShortestPath(graph, node);
-                for (var i = 1; i < shortestPaths[node.Id - 1].Length; i++)
+                for (var i = 0; i < shortestPaths[node.Id - 1].Length; i++)
                 {
                     shortestPaths[node.Id - 1][i] = shortestPaths[node.Id - 1][i]
                                                     + shortestPathsFromFakeNode[i] -
-                                                    shortestPathsFromFakeNode[node.Id];
+                                                    shortestPathsFromFakeNode[node.Id - 1];
                 }
-
             }
 
             return shortestPaths;
         }
 
+        /// <summary>
+        /// Добавление дополнительной вершины в граф
+        /// </summary>
+        /// <param name="graph"></param>
         private static void AddFakeNode(this Graph graph)
         {
             graph.Nodes.Add(new Node{Id = GraphNodesCount + 1});
@@ -59,12 +70,22 @@ namespace Johnson.Algorithm.SearchEngine
             }
         }
 
+        /// <summary>
+        /// Удаление дополнительной вершины из графа
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="id"></param>
         private static void RemoveFakeNode(this Graph graph, int id)
         {
             graph.Nodes.Remove(graph.Nodes.First(f => f.Id == id));
             graph.Edges.RemoveAll(f => f.SourceNode == id);
         }
 
+        /// <summary>
+        /// Перевзвешивание ребёр исходя из результатов работы алгоритма Бэллмана-Форда
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="shortestPaths"></param>
         private static void Reweighting(this Graph graph, int[] shortestPaths)
         {
             foreach (var edge in graph.Edges)

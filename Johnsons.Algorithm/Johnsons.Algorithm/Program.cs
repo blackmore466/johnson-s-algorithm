@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Johnson.Algorithm.Model;
 using Johnson.Algorithm.SearchEngine;
 
@@ -283,6 +283,7 @@ namespace Johnson.Algorithm
 
             #endregion
 
+            //граф с отрицательными весами ребёр
             #region Init graph4
             Graph graph4 = new Graph();
             graph4.Nodes = new List<Node>
@@ -354,6 +355,7 @@ namespace Johnson.Algorithm
 
             #endregion
 
+            //граф с отрицательным циклом
             #region Init graph5
             Graph graph5 = new Graph();
             graph5.Nodes = new List<Node>
@@ -370,55 +372,55 @@ namespace Johnson.Algorithm
                 {
                     SourceNode = 1,
                     DestinationNode = 2,
-                    Weight = 4
+                    Weight = 3
                 },
                 new Edge
                 {
                     SourceNode = 1,
                     DestinationNode = 3,
-                    Weight = 13
+                    Weight = 8
                 },
                 new Edge
                 {
                     SourceNode = 1,
                     DestinationNode = 5,
-                    Weight = 0
+                    Weight = -4
                 },
                 new Edge
                 {
                     SourceNode = 2,
                     DestinationNode = 4,
-                    Weight = 0
+                    Weight = 1
                 },
                 new Edge
                 {
                     SourceNode = 2,
                     DestinationNode = 5,
-                    Weight = 10
+                    Weight = 7
                 },
                 new Edge
                 {
                     SourceNode = 3,
                     DestinationNode = 2,
-                    Weight = 0
+                    Weight = 4
                 },
                 new Edge
                 {
                     SourceNode = 4,
                     DestinationNode = 3,
-                    Weight = 0
+                    Weight = -5
                 },
                 new Edge
                 {
                     SourceNode = 4,
                     DestinationNode = 1,
-                    Weight = 2
+                    Weight = -22
                 },
                 new Edge
                 {
                     SourceNode = 5,
                     DestinationNode = 4,
-                    Weight = 2
+                    Weight = 6
                 },
 
             };
@@ -426,21 +428,28 @@ namespace Johnson.Algorithm
             #endregion
 
 
-            var shortestDistances21 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 1));
-            var shortestDistances22 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 2));
-            var shortestDistances23 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 3));
-            var shortestDistances24 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 4));
-            var shortestDistances25 = DijkstraAlgorithm.FindShortestPath(graph5, graph5.Nodes.First(f => f.Id == 5));
-            
-            //var shortestDistances1 = BellmanFordAlgorithm.FindShortestPath(graph3, graph3.Nodes.First(f => f.Id == 1));
-
             try
             {
-                var shortestDistances = JohnsonAlgorithm.FindShortestPaths(graph4);
+                var shortestDistances = JohnsonAlgorithm.FindShortestPaths(graph5);
+
+                Console.WriteLine("Кратчайшие пути:");
+                for (var i = 0; i < shortestDistances.Length; i++)
+                {
+                    Console.WriteLine("Для вершины {0}:", i+1);
+                    for (int j = 0; j < shortestDistances[i].Length; j++)
+                    {
+                        Console.WriteLine("\t - кратчайшее расстояние до вершины {0} равно {1}", j+1, shortestDistances[i][j]);
+                    }
+                }
+                Console.WriteLine("Для выхода нажмите любую клавишу");
+                Console.ReadKey();
             }
             catch (NegativeCycleException e)
             {
                 _errorMessage = e.Message;
+                Console.WriteLine(_errorMessage);
+                Console.WriteLine("Для выхода нажмите любую клавишу");
+                Console.ReadKey();
             }
         }
     }
