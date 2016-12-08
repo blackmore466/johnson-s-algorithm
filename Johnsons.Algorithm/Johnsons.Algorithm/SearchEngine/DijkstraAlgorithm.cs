@@ -58,8 +58,7 @@ namespace Johnson.Algorithm.SearchEngine
                         int alternativeDistance = checked(minimalDistance + edge.Weight);
                         if (alternativeDistance < _distances[edge.DestinationNode - 1])
                         {
-                            _distances[edge.DestinationNode - 1] = alternativeDistance;
-                            //для каждой смежной вершины переопределяем расстояние
+                            _distances[edge.DestinationNode - 1] = alternativeDistance; //для каждой смежной вершины переопределяем расстояние
                             _priorityQueue.ChangePriority(edge.DestinationNode, alternativeDistance);
                         }
                     }
