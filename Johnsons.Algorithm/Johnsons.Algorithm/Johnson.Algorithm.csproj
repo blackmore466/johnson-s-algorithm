@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Edge.cs" />
+    <Compile Include="Model\OrientedAndWeightedEdge.cs" />
     <Compile Include="Model\Graph.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\PriorityQueue.cs" />

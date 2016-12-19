@@ -64,7 +64,7 @@ namespace Johnson.Algorithm.SearchEngine
             {
                 if (node.Id != GraphNodesCount + 1)
                 {
-                    graph.Edges.Add(new Edge
+                    graph.Edges.Add(new OrientedAndWeightedEdge
                     {
                         SourceNode = GraphNodesCount + 1,
                         DestinationNode = node.Id,

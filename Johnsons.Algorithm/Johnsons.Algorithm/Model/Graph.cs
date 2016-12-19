@@ -7,11 +7,11 @@ namespace Johnson.Algorithm.Model
         public Graph()
         {
             Nodes = new List<Node>();
-            Edges = new List<Edge>();
+            Edges = new List<OrientedAndWeightedEdge>();
         }
 
         public List<Node> Nodes { get; set; }
 
-        public List<Edge> Edges { get; set; }
+        public List<OrientedAndWeightedEdge> Edges { get; set; }
     }
 }
